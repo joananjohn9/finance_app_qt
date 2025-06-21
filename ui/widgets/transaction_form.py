@@ -2,6 +2,7 @@ from PySide6.QtWidgets import QWidget, QFormLayout, QLineEdit, QComboBox, QPushB
 from PySide6.QtCore import Slot,Signal
 from controllers.transaction_controller import TransactionManager
 from models.transaction import Transaction
+from logs.logger import logger
 
 
 TRANSACTION_ITEMS = ["-- Select Category --","Income", "Expense", "Investment"]
@@ -49,10 +50,22 @@ class TransactionForm(QWidget):
             amount = float(amount_text)
         except ValueError:
             QMessageBox.warning(self, "Invalid Input", "Amount must be a number")
+            logger.warning("Invalid amount input")
             return #Don't proceed if invalid
         
         if category == "-- Select Category --":
             QMessageBox.warning(self, "Invalid Input", "Please select a valid category.")
+            logger.warning("Invalid Category")
+            return
+        
+        if not description.strip():
+            QMessageBox.warning(self,"Description cannot be empty")
+            logger.warning("Empty Description")
+            return
+        
+        if amount <= 0:
+            QMessageBox.warning(self,"Amount should be greater than 0")
+            logger.warning("Invalid amount input")
             return
             
         #Making transaction object

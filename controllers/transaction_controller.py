@@ -1,5 +1,6 @@
 from models.transaction import Transaction
 from utils.file_handler import save_transactions, load_transactions
+from logs.logger import logger
 
 class TransactionManager:
 
@@ -9,17 +10,20 @@ class TransactionManager:
     def add_transaction(self,transaction:Transaction):
         self.transactions.append(transaction)
         save_transactions(self.transactions)
+        logger.info(f"Transaction added: {transaction.to_dict()}")
+
 
     def get_all_transactions(self) -> list[Transaction]:
         return self.transactions.copy()
     
     def delete_transaction(self, id:str) -> bool:
-        for index, transaction in enumerate(self.transactions):
+        for index, transaction in enumerate(self.transactions):            
             if transaction.id == id:
                 del self.transactions[index]
                 save_transactions(self.transactions)
+                logger.info(f"Transaction added: {transaction.to_dict()}")
                 return True
-            
+        print("[Warning] : Id doesn't exist")    
         return False
         
     def get_transaction_summary(self) -> dict:
