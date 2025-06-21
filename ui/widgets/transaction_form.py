@@ -1,5 +1,5 @@
 from PySide6.QtWidgets import QWidget, QFormLayout, QLineEdit, QComboBox, QPushButton
-from PySide6.QtCore import Slots
+from PySide6.QtCore import Slot
 from controllers.transaction_controller import TransactionManager
 from models.transaction import Transaction
 
@@ -37,9 +37,35 @@ class TransactionForm(QWidget):
     def handle_transaction(self):
 
         #Getting inputs
-        amount = self.amount_input.text()
-        category = self.category_input.text()
+        amount_text = self.amount_input.text()
+        category = self.category_input.currentText()
         description = self.description_input.text()
+
+        #Validating transaction
+        try:
+            amount = float(amount_text)
+        except ValueError:
+            print("[Error] Amount must be a number")
+            return #Don't proceed if invalid
+            
+        #Making transaction object
+        transaction = Transaction(
+            amount = amount,
+            category = category,
+            description = description
+        )
+
+        # Save it using controller
+        self.controller.add_transaction(transaction)
+
+
+        print("Transaction saved")
+
+        #Clear fields
+        self.amount_input.clear()
+        self.category_input.setCurrentIndex(0)
+        self.description_input.clear()
+
 
         
 

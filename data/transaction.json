@@ -1,0 +1,23 @@
+c[
+    {
+        "amount": 12.0,
+        "category": "Income",
+        "description": "Food",
+        "date": "2025-06-21",
+        "id": "63eb1a2431d54960a57da66688a5b0ed"
+    },
+    {
+        "amount": 45.0,
+        "category": "",
+        "description": "dfsdj",
+        "date": "2025-06-21",
+        "id": "be6fd494ec354a858f840e9e2d9e1760"
+    },
+    {
+        "amount": 50.0,
+        "category": "Expenses",
+        "description": "ladj",
+        "date": "2025-06-21",
+        "id": "bee4432140884990976156d4065e6f46"
+    }
+]
