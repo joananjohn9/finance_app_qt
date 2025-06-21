@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import QWidget, QFormLayout, QLineEdit, QComboBox, QPushButton
-from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QWidget, QFormLayout, QLineEdit, QComboBox, QPushButton,QMessageBox
+from PySide6.QtCore import Slot,Signal
 from controllers.transaction_controller import TransactionManager
 from models.transaction import Transaction
 
@@ -7,10 +7,13 @@ from models.transaction import Transaction
 TRANSACTION_ITEMS = ["-- Select Category --","Income", "Expenses", "Investment"]
 
 class TransactionForm(QWidget):
+    transaction_added = Signal()
+
     def __init__(self,controller,parent=None):
 
         super().__init__(parent)
         self.controller = controller
+        
         self.setup_ui()
 
 
@@ -45,8 +48,12 @@ class TransactionForm(QWidget):
         try:
             amount = float(amount_text)
         except ValueError:
-            print("[Error] Amount must be a number")
+            QMessageBox.warning(self, "Invalid Input", "Amount must be a number")
             return #Don't proceed if invalid
+        
+        if category == "-- Select Category --":
+            QMessageBox.warning(self, "Invalid Input", "Please select a valid category.")
+            return
             
         #Making transaction object
         transaction = Transaction(
@@ -57,14 +64,18 @@ class TransactionForm(QWidget):
 
         # Save it using controller
         self.controller.add_transaction(transaction)
-
-
-        print("Transaction saved")
+    
 
         #Clear fields
         self.amount_input.clear()
         self.category_input.setCurrentIndex(0)
         self.description_input.clear()
+
+        #Print Message
+        QMessageBox.information(self,"Success", "Transaction Added Successfully")
+
+        self.transaction_added.emit()
+
 
 
         
