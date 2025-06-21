@@ -5,19 +5,5 @@
         "description": "Food",
         "date": "2025-06-21",
         "id": "951385f2c11445a8a38bff741c0f39b4"
-    },
-    {
-        "amount": 120.0,
-        "category": "Expenses",
-        "description": "adjldsj",
-        "date": "2025-06-21",
-        "id": "ad59178c65a0436cb2ed40417de9561d"
-    },
-    {
-        "amount": 120.0,
-        "category": "Investment",
-        "description": "Stock",
-        "date": "2025-06-21",
-        "id": "cff2a908dec7404fb541eec26fd4f56a"
     }
 ]
