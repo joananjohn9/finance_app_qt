@@ -4,7 +4,7 @@ from controllers.transaction_controller import TransactionManager
 from models.transaction import Transaction
 
 
-TRANSACTION_ITEMS = ["-- Select Category --","Income", "Expenses", "Investment"]
+TRANSACTION_ITEMS = ["-- Select Category --","Income", "Expense", "Investment"]
 
 class TransactionForm(QWidget):
     transaction_added = Signal()
